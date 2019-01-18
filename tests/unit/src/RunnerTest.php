@@ -134,7 +134,7 @@ class RunnerTest extends TestCase {
 
         // Let's verify that it wasn't called.
         try {
-            $formatter->mockery_verify();
+            $this->assertNull($formatter->mockery_verify());
         } catch (\Exception $e) {
             $this->fail($e->getMessage());
         }
@@ -156,7 +156,7 @@ class RunnerTest extends TestCase {
         $this->runner->exceptionHandler(new \Exception);
 
         try {
-            $this->formatter->mockery_verify();
+            $this->assertNull($this->formatter->mockery_verify());
         } catch (\Exception $e) {
             $this->fail($e->getMessage());
         }
@@ -209,7 +209,7 @@ class RunnerTest extends TestCase {
         $this->runner->exceptionHandler(new \Exception);
 
         try {
-            $this->formatter->mockery_verify();
+            $this->assertNull($this->formatter->mockery_verify());
         } catch (\Exception $e) {
             $this->fail($e->getMessage());
         }
@@ -236,7 +236,7 @@ class RunnerTest extends TestCase {
         $formatter->shouldReceive('format');
 
         $runner = new BooBooExt([$formatter]);
-        $runner->shutdownHandler();
+        $this->assertNull($runner->shutdownHandler());
     }
 
 
@@ -248,7 +248,7 @@ class RunnerTest extends TestCase {
         $formatter->shouldNotHaveReceived('format');
 
         $runner = new BooBooExt([$formatter]);
-        $runner->shutdownHandler();
+        $this->assertNull($runner->shutdownHandler());
 
         BooBooExt::$LAST_ERROR = E_ERROR;
     }

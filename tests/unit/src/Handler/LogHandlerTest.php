@@ -27,7 +27,7 @@ class LogHandlerTest extends TestCase {
         $this->handler->handle(new \Exception);
 
         try {
-            $this->logger->mockery_verify();
+            $this->assertNull($this->logger->mockery_verify());
         } catch (\Exception $e) {
             $this->fail($e->getMessage());
         }
@@ -35,7 +35,6 @@ class LogHandlerTest extends TestCase {
 
     public function testErrorExceptionForErrors() {
         $message = 'test message';
-        $exception = new \ErrorException($message);
         $this->logger->shouldReceive('error')->times(6);
 
         $this->handler->handle(new \ErrorException($message, 0, E_ERROR));
@@ -46,7 +45,7 @@ class LogHandlerTest extends TestCase {
         $this->handler->handle(new \ErrorException($message, 0, E_PARSE));
 
         try {
-            $this->logger->mockery_verify();
+            $this->assertNull($this->logger->mockery_verify());
         } catch (\Exception $e) {
             $this->fail($e->getMessage());
         }
@@ -54,7 +53,6 @@ class LogHandlerTest extends TestCase {
 
     public function testErrorExceptionForWarnings() {
         $message = 'test message';
-        $exception = new \ErrorException($message);
         $this->logger->shouldReceive('warning')->times(4);
 
         $this->handler->handle(new \ErrorException($message, 0, E_WARNING));
@@ -62,9 +60,8 @@ class LogHandlerTest extends TestCase {
         $this->handler->handle(new \ErrorException($message, 0, E_CORE_WARNING));
         $this->handler->handle(new \ErrorException($message, 0, E_COMPILE_WARNING));
 
-
         try {
-            $this->logger->mockery_verify();
+            $this->assertNull($this->logger->mockery_verify());
         } catch (\Exception $e) {
             $this->fail($e->getMessage());
         }
@@ -72,7 +69,6 @@ class LogHandlerTest extends TestCase {
 
     public function testErrorExceptionForNoticesAndInfo() {
         $message = 'test message';
-        $exception = new \ErrorException($message);
         $this->logger->shouldReceive('notice')->times(2);
         $this->logger->shouldReceive('info')->times(3);
 
@@ -82,17 +78,15 @@ class LogHandlerTest extends TestCase {
         $this->handler->handle(new \ErrorException($message, 0, E_DEPRECATED));
         $this->handler->handle(new \ErrorException($message, 0, E_USER_DEPRECATED));
 
-
-
         try {
-            $this->logger->mockery_verify();
+            $this->assertNull($this->logger->mockery_verify());
         } catch (\Exception $e) {
             $this->fail($e->getMessage());
         }
     }
 
-    protected function tearDown()
-    {
+    protected function tearDown() {
         Mockery::close();
     }
+
 }

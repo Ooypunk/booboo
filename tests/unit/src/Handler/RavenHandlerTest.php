@@ -13,7 +13,7 @@ class RavenHandlerTest extends TestCase
         $ravenClient->makePartial();
 
         $handler = new SentryHandler($ravenClient);
-        $handler->handle(new Exception);
+		$this->assertNull($handler->handle(new Exception));
     }
 
     public function testRavenLogHandlerWithErrorException()
@@ -24,7 +24,7 @@ class RavenHandlerTest extends TestCase
         $ravenClient->makePartial();
 
         $handler = new SentryHandler($ravenClient);
-        $handler->handle(new ErrorException('test', 0, E_ERROR));
+        $this->assertNull($handler->handle(new ErrorException('test', 0, E_ERROR)));
     }
 
     public function testErrorLevelNotListenedForIsIgnored()
@@ -36,7 +36,7 @@ class RavenHandlerTest extends TestCase
         $errorLevel = E_ERROR | E_WARNING;
 
         $handler = new SentryHandler($ravenClient, $errorLevel);
-        $handler->handle(new ErrorException('test', 0, E_NOTICE));
+        $this->assertNull($handler->handle(new ErrorException('test', 0, E_NOTICE)));
 
     }
 

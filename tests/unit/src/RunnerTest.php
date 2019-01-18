@@ -150,10 +150,11 @@ class RunnerTest extends TestCase {
 
     public function testFormattersFormatCode() {
         $this->formatter->shouldReceive('getErrorLimit')->andReturn(E_ALL);
-        $this->formatter->shouldReceive('format')->twice()->andReturn('');
+        $this->formatter->shouldReceive('format')->times(3)->andReturn('');
 
         $this->runner->errorHandler(E_WARNING, 'warning', 'index.php', 11);
         $this->runner->exceptionHandler(new \Exception);
+        $this->runner->exceptionHandler(new \Error);
 
         try {
             $this->assertNull($this->formatter->mockery_verify());

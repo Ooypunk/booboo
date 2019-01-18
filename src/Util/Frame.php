@@ -186,7 +186,7 @@ class Frame implements Serializable
         $contents = $this->getFileContents();
 
         if (isset($contents)) {
-            $lines = explode(PHP_EOL, $contents);
+            $lines = explode("\n", $contents);
             // Get a subset of lines from $start to $end
             if ($length !== null) {
                 $start  = (int) $start;

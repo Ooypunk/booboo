@@ -56,7 +56,9 @@ class FrameTest extends TestCase {
 
     public function testGetFileContents()
     {
-        $this->assertEquals("test" . PHP_EOL . "content", $this->frame->getFileContents());
+		$expected = "test\ncontent";
+		$actual = $this->frame->getFileContents();
+		$this->assertEquals($expected, $actual);
     }
 
     public function testComments()
